@@ -1,0 +1,40 @@
+
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        Arrays.sort(nums);
+        int missing=0;
+        boolean allNonPositive = true;
+        int firstPositive = -1;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                firstPositive = i;
+                break;
+            }
+        }
+
+        if (firstPositive == -1 || nums[firstPositive] > 1) {
+            return 1;
+        }
+        if (Arrays.stream(nums).allMatch(num -> num < 0)) {
+            return 1;
+            }
+
+        if (nums[0]>1){missing=1;return missing;}
+        for(int i=firstPositive;i<nums.length;i++){
+            if (i==nums.length-1){
+                missing=nums[i]+1;
+                break;
+            }
+            if (nums[i]==nums[i+1]){continue;}
+
+            if (nums[i]+1!=nums[i+1]){
+                missing=nums[i]+1;
+                if (missing==0){continue;}
+                break;
+            }
+            
+        }
+        return missing;
+    }
+}
